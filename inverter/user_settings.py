@@ -116,7 +116,7 @@ def make_config(
     ip,
     port,
     verbosity,
-    compact: bool = True,
+    compact: bool = False,
     config_path=None,
     inverter=None,
 ) -> Config:
@@ -137,3 +137,16 @@ def make_config(
         inverter_name=inverter,
         config_path=config_path,
     )
+
+def get_toml_settings() -> TomlSettings:
+    return TomlSettings(
+        dir_name='inverter-connect',
+        file_name='inverter-connect',
+        settings_dataclass=UserSettings(),
+    )
+
+
+def get_user_settings(verbosity: int) -> UserSettings:
+    toml_settings: TomlSettings = get_toml_settings()
+    user_settings: UserSettings = toml_settings.get_user_settings(debug=verbosity > 0)
+    return user_settings

@@ -26,3 +26,5 @@ TYPE_MAP = {
 
 SETTINGS_DIR_NAME = 'inverter-connect'
 SETTINGS_FILE_NAME = 'inverter-connect'
+
+DEFAULT_DEVICE_MANUFACTURER = "Deye"

@@ -8,6 +8,7 @@
 """
 
 import hashlib
+import shlex
 import subprocess
 import sys
 import venv
@@ -32,7 +33,7 @@ else:
         sys.exit(-1)
 
 
-assert sys.version_info >= (3, 9), 'Python version is too old!'
+assert sys.version_info >= (3, 10), f'Python version {sys.version_info} is too old!'
 
 
 if sys.platform == 'win32':  # wtf
@@ -60,7 +61,7 @@ PROJECT_SHELL_SCRIPT = BIN_PATH / 'inverter_app'
 
 
 def get_dep_hash():
-    """Get SHA512 hash from poetry.lock content."""
+    """Get SHA512 hash from lock file content."""
     return hashlib.sha512(DEP_LOCK_PATH.read_bytes()).hexdigest()
 
 
@@ -77,7 +78,7 @@ def venv_up2date():
 
 
 def verbose_check_call(*popen_args):
-    print(f'\n+ {" ".join(str(arg) for arg in popen_args)}\n')
+    print(f'\n+ {shlex.join(str(arg) for arg in popen_args)}\n')
     return subprocess.check_call(popen_args)
 
 
@@ -106,9 +107,11 @@ def main(argv):
 
     # Call our entry point CLI:
     try:
-        verbose_check_call(PROJECT_SHELL_SCRIPT, *sys.argv[1:])
+        verbose_check_call(PROJECT_SHELL_SCRIPT, *argv[1:])
     except subprocess.CalledProcessError as err:
         sys.exit(err.returncode)
+    except KeyboardInterrupt:
+        pass
 
 
 if __name__ == '__main__':

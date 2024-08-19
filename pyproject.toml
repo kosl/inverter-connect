@@ -7,14 +7,14 @@ readme = "README.md"
 authors = [
     {name = 'Jens Diemer', email = 'inverter-connect@jensdiemer.de'}
 ]
-requires-python = ">=3.9,<4"
+requires-python = ">=3.11,<4"
 dependencies = [
-    "ha-services", # https://github.com/jedie/ha-services
+    "ha-services>=2.5.0", # https://github.com/jedie/ha-services
     "backoff",  # https://github.com/litl/backoff
     "paho-mqtt",  # https://pypi.org/project/paho-mqtt/
     "msgspec",  # https://github.com/jcrist/msgspec
     "pyyaml",  # https://github.com/yaml/pyyaml
-    "cli-base-utilities",  # https://github.com/jedie/cli-base-utilities
+    "cli-base-utilities>=0.10.3",  # https://github.com/jedie/cli-base-utilities
     "click",  # https://github.com/pallets/click/
     "rich-click",  # https://github.com/ewels/rich-click
     "rich",  # https://github.com/Textualize/rich
@@ -56,7 +56,7 @@ Source = "https://github.com/jedie/inverter-connect"
 
 [project.scripts]
 inverter_app = "inverter.__main__:main"
-inverter_dev = "inverter.cli.dev:main"
+inverter_dev = "inverter.cli_dev:main"
 
 [build-system]
 requires = ["setuptools>=61.0", "setuptools_scm>=7.1"]

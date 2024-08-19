@@ -10,7 +10,7 @@ from click.testing import Result
 from manageprojects.test_utils.click_cli_utils import ClickInvokeCliException, invoke_click
 from manageprojects.tests.base import BaseTestCase
 
-from inverter.cli.cli_app import cli
+from inverter.cli_app.cli_app import cli
 from inverter.constants import PACKAGE_ROOT, SETTINGS_DIR_NAME, SETTINGS_FILE_NAME
 from inverter.user_settings import UserSettings
 
