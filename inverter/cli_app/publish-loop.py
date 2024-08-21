@@ -56,7 +56,6 @@ def publish_loop(ip, port, inverter, verbosity: int):
     setup_logging(verbosity=verbosity)
     user_settings: UserSettings = get_user_settings(verbosity=verbosity)
 
-    inverter_mqtt_handler = InverterMqttHandler(user_settings=user_settings, verbosity=verbosity)
 
     toml_settings = TomlSettings(
         dir_name=SETTINGS_DIR_NAME,
@@ -75,11 +74,12 @@ def publish_loop(ip, port, inverter, verbosity: int):
         inverter=inverter,
     )
         
+    inverter_mqtt_handler = InverterMqttHandler(config=config, user_settings=user_settings, verbosity=verbosity)
     
     while True:
         try:
             asyncio.run(
-                inverter_mqtt_handler.publish_loop(config=config, verbosity=verbosity)
+                inverter_mqtt_handler.publish_loop(verbosity=verbosity)
             )
         except TimeoutError:
             print('Timeout... Retrying in 1 second...')

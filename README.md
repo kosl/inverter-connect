@@ -11,9 +11,9 @@ I will no longer use Deye devices. Partly because of the #RelaisGate.
 [![Python Versions](https://img.shields.io/pypi/pyversions/inverter-connect)](https://github.com/jedie/inverter-connect/blob/main/pyproject.toml)
 [![License GPL-3.0-or-later](https://img.shields.io/pypi/l/inverter-connect)](https://github.com/jedie/inverter-connect/blob/main/LICENSE)
 
-Get information from Deye Microinverter
-
-The whole thing is just a learning exercise for now. We will see.
+Get information from *Deye* micro and/or hybrid inverter(s) using
+Modbus/`AT+` commands from the WiFi logger(s) in a local network and publish
+to Home Assistant MQTT service with auto discovery.
 
 
 # quickstart
@@ -24,11 +24,12 @@ The whole thing is just a learning exercise for now. We will see.
 * Bootstrap and create default user settings by just call `./cli.py edit-settings`
 * Change the settings for your needs
 * ...use the commands... ;)
-* Setup systemd service to publish the inventer values to a Home Assistant instance via MQTT
+* Setup systemd service to publish the inverter values to a Home Assistant instance via MQTT
+
 
 Currently just clone the project and just start the cli (that will create a virtualenv and installs every dependencies)
 
-Note: Please enable https://www.piwheels.org/ if you are on a Raspberry Pi !
+Note: Multiple inverters are possible by specifying `--ip` and model with `--inverter`
 
 e.g.:
 ```bash

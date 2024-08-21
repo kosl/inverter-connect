@@ -196,12 +196,12 @@ class InverterSock:
     def __enter__(self) -> InverterSock:
         return self
 
-    def init_inventer(self) -> None:
+    def init_inverter(self) -> None:
         data = self.recv_command(command=self.config.init_cmd)
         self.send(command=b'+ok')
         data = data.decode()
         data = data.split(',')
-        self.inverter_info = InverterInfo(ip=data[0], mac=data[1], serial=int(data[2]))
+        self.inverter_info = InverterInfo(ip=data[0], mac=data[1], serial=int(data[2])) 
 
         print(self.inverter_info)
         print()
@@ -213,7 +213,7 @@ class InverterSock:
         # self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.sock.settimeout(self.config.socket_timeout)
 
-        self.init_inventer()
+        self.init_inverter()
 
     def send(self, *, command: bytes):
         if self.config.verbosity > 1:
@@ -300,7 +300,7 @@ class InverterSock:
 
         return response
 
-    def read_paremeter(self, *, parameter: Parameter) -> ModbusReadResult:
+    def read_parameter(self, *, parameter: Parameter) -> ModbusReadResult:
         if self.config.verbosity > 1:
             print(parameter)
 

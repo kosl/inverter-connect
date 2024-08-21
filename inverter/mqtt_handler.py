@@ -10,45 +10,47 @@ from ha_services.mqtt4homeassistant.device import  MqttDevice
 from ha_services.mqtt4homeassistant.mqtt import get_connected_client
 from ha_services.mqtt4homeassistant.utilities.string_utils import slugify
 from paho.mqtt.client import Client
-#from ha_services.mqtt4homeassistant.converter import values2mqtt_payload
-#from ha_services.mqtt4homeassistant.data_classes import HaValue, HaValues
-#from ha_services.mqtt4homeassistant.mqtt import HaMqttPublisher
 from packaging.version import Version
 from rich import print  # noqa
 
 from inverter import __version__
 from inverter.api import Inverter
+from inverter.connection import InverterSock
 from inverter.constants import ERROR_STR_NO_DATA, DEFAULT_DEVICE_MANUFACTURER
+from inverter.definitions import get_parameter
 from inverter.daily_reset import DailyProductionReset, DailyProductionResetState
-from inverter.data_types import Config, InverterInfo, InverterValue
+from inverter.data_types import Config, InverterInfo, ModbusReadResult
 from inverter.exceptions import ReadInverterError, ReadTimeout, ValidationError
 from inverter.user_settings import UserSettings
 
 logger = logging.getLogger(__name__)
 
 class InverterMqttHandler:
-    def __init__(self, user_settings: UserSettings, verbosity: int):
+    def __init__(self, config: Config, user_settings: UserSettings, verbosity: int):
+        self.config = config
         self.user_settings = user_settings
         self.verbosity = verbosity
         self.mqtt_client = get_connected_client(settings=user_settings.mqtt, verbosity=verbosity)
         self.mqtt_client.loop_start()
         self.main_device: MqttDevice|None = None
+        self.parameters = get_parameter(config=config)
         self.sensors = list()
+        self.sensor_loop_running_time = None
 
-    def init_device(self, inverter: Inverter, inverter_info: InverterInfo, inverter_model_name: str, verbosity: int):
+    def init_device(self, inverter_info: InverterInfo, verbosity: int):
         """
-        Create sensors from definitions.toml add it to device for later
+        Create sensors from definitions/*.yaml add it to device for later
         update in publish process.
         """
         self.main_device = MqttDevice(
-            name='Inverter ' + str(inverter_info.serial),
+            name=DEFAULT_DEVICE_MANUFACTURER+'-'+str(inverter_info.serial),
             uid=str(inverter_info.serial), # Required for multiple inverters to appear as main device
             manufacturer=DEFAULT_DEVICE_MANUFACTURER,
-            model=inverter_model_name.upper(),
+            model=self.config.inverter_name.upper(),
             sw_version=__version__,
             config_throttle_sec=self.user_settings.mqtt.publish_config_throttle_seconds,
         )
-        self.sensors.append(Sensor(
+        self.sensor_loop_running_time = Sensor(
             device=self.main_device,
             name='Loop Running Time',
             uid=slugify('Loop Running Time'),
@@ -56,28 +58,44 @@ class InverterMqttHandler:
             state_class='measurement',
             unit_of_measurement='sec.',
             suggested_display_precision=0,
-        ))
+        )
+
+        for parameter in self.parameters:
+            self.sensors.append((Sensor(
+                device=self.main_device,
+                name=parameter.name,
+                uid=slugify(parameter.name),
+                device_class=parameter.device_class,
+                state_class=parameter.state_class,
+                unit_of_measurement=parameter.unit,
+                suggested_display_precision=1,
+            ), parameter))
         
-    async def publish_loop(self, config: Config, verbosity):
-
+        
+    async def publish_loop(self, verbosity):
         try:
-            with Inverter(config=config) as inverter:
-                inverter.connect()
-                inverter_info: InverterInfo = inverter.inv_sock.inverter_info
+            if self.main_device is None:
+                with InverterSock(config=self.config) as inverter_socket:
+                    inverter_socket.connect()
+                    inverter_info: InverterInfo = inverter_socket.inverter_info
+                    self.init_device(inverter_info, verbosity)
 
-                if self.main_device is None:
-                    self.init_device(inverter=inverter, inverter_info=inverter_info, inverter_model_name=config.inverter_name, verbosity=verbosity)
-
-                    start_time = time.monotonic()
+            start_time = time.monotonic()
             
-                    async def update_sensors():
-                        for sensor in self.sensors:
-                            sensor.set_state(int(time.monotonic() - start_time))
-                            sensor.publish(self.mqtt_client)
+            def update_sensors(inverter_socket: InverterSock):
+                self.sensor_loop_running_time.set_state(int(time.monotonic() - start_time))
+                self.sensor_loop_running_time.publish(self.mqtt_client)
+                for sensor, parameter in self.sensors:
+                    result: ModbusReadResult = inverter_socket.read_parameter(parameter=parameter)
+                    sensor.set_state(result.parsed_value)
+                    sensor.publish(self.mqtt_client)
 
-                    while True:
-                        await update_sensors()
-                        await asyncio.sleep(10)
+            print("[blue]Starting publishing loop...")
+            while True:
+                with InverterSock(config=self.config) as inverter_socket:
+                        inverter_socket.connect()
+                        update_sensors(inverter_socket)
+                await asyncio.sleep(10)
                         
         except ReadTimeout as err:
             print(f'[red]{err}')
@@ -89,7 +107,7 @@ class InverterMqttHandler:
             
 
           
-def old_publish_forever(*, config: Config, verbosity):
+def old_publish_forever(*, config: Config, verbosity): # 
     start_time = time.monotonic()
 
     mqtt_settings = config.mqtt_settings

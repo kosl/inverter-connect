@@ -34,7 +34,7 @@ def compute_values(values: dict) -> Iterable[InverterValue]:
         voltage_name = f'{section} Voltage'
         current_name = f'{section} Current'
         if voltage_name in values and current_name in values:
-            name = f'{section} Power'
+            name = f'{section} Power computed'
             voltage: InverterValue = values[voltage_name]
             current: InverterValue = values[current_name]
             try:
@@ -69,7 +69,7 @@ def compute_values(values: dict) -> Iterable[InverterValue]:
     if total_power is not None:
         yield InverterValue(
             type=ValueType.COMPUTED,
-            name='Total Power',
+            name='Total Power computed',
             value=round(total_power, 2),
             device_class='power',
             state_class='measurement',

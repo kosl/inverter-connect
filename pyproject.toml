@@ -1,7 +1,7 @@
 [project]
 name = "inverter-connect"
 dynamic = ["version"]
-description = "Get information from Deye Microinverter"
+description = "Get information from Deye inverters and publish to Home Assistant MQTT"
 license = {text = "GPL-3.0-or-later"}
 readme = "README.md"
 authors = [
