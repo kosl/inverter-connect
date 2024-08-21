@@ -116,7 +116,7 @@ def make_config(
     ip,
     port,
     verbosity,
-    compact: bool = False,
+    compact: bool = True,
     config_path=None,
     inverter=None,
 ) -> Config:

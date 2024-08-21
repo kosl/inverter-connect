@@ -43,8 +43,8 @@ class InverterMqttHandler:
         update in publish process.
         """
         self.main_device = MqttDevice(
-            name=DEFAULT_DEVICE_MANUFACTURER+'-'+str(inverter_info.serial),
-            uid=str(inverter_info.serial), # Required for multiple inverters to appear as main device
+            name=DEFAULT_DEVICE_MANUFACTURER+' '+str(inverter_info.serial),
+            uid='inverter_'+str(inverter_info.serial), # Required for multiple inverters to appear as main device
             manufacturer=DEFAULT_DEVICE_MANUFACTURER,
             model=self.config.inverter_name.upper(),
             sw_version=__version__,
