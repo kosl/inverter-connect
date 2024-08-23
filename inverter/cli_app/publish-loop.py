@@ -1,4 +1,3 @@
-import asyncio
 import time
 
 import rich_click as click
@@ -78,9 +77,7 @@ def publish_loop(ip, port, inverter, verbosity: int):
     
     while True:
         try:
-            asyncio.run(
-                inverter_mqtt_handler.publish_loop(verbosity=verbosity)
-            )
+            inverter_mqtt_handler.publish_loop(verbosity=verbosity)
         except TimeoutError:
             print('Timeout... Retrying in 1 second...')
             time.sleep(1)

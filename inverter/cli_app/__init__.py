@@ -20,7 +20,7 @@ import inverter
 from inverter import constants
 from inverter.constants import SETTINGS_DIR_NAME, SETTINGS_FILE_NAME
 from inverter.definitions import get_definition_names
-from inverter.user_settings import SystemdServiceInfo, UserSettings, make_config, migrate_old_settings
+from inverter.user_settings import SystemdServiceInfo, UserSettings, make_config
 
 
 logger = logging.getLogger(__name__)

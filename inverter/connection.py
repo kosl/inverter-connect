@@ -203,7 +203,7 @@ class InverterSock:
         data = data.split(',')
         self.inverter_info = InverterInfo(ip=data[0], mac=data[1], serial=int(data[2])) 
 
-        if self.config.verbosity > 1:
+        if self.config.verbosity:
             print(self.inverter_info)
             print()
 
@@ -276,10 +276,10 @@ class InverterSock:
         if exc_type:
             return False
 
-        if self.config.verbosity > 1:
+        if self.config.verbosity:
             print('\nSigning off with "AT+Q"', end='...')
         self.send(command=b'AT+Q\n')
-        if self.config.verbosity > 1:
+        if self.config.verbosity:
             print('Goodbye ;)\n')
 
     @backoff.on_exception(backoff.expo, ModbusNoData, **BACKOFF_DEFAULTS)

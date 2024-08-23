@@ -7,7 +7,7 @@ from cli_base.toml_settings.api import TomlSettings
 from rich import get_console, print  # noqa
 from inverter.api import Inverter, fetch_inverter_versions, set_current_time
 from inverter.cli_app import cli, option_kwargs_ip, option_kwargs_port, user_settings, option_kwargs_inverter_name, option_kwargs_compact
-from inverter.user_settings import SystemdServiceInfo, UserSettings, make_config, migrate_old_settings
+from inverter.user_settings import SystemdServiceInfo, UserSettings, make_config
 from inverter.utilities.cli import (
     convert_address_option,
     print_inverter_values,
