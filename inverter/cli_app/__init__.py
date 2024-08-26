@@ -11,6 +11,7 @@ import rich_click as click
 from cli_base.autodiscover import import_all_files
 from cli_base.cli_tools.version_info import print_version
 from cli_base.toml_settings.api import TomlSettings
+from cli_base.toml_settings.exceptions import UserSettingsNotFound
 from rich import get_console, print  # noqa
 from rich.console import Console
 from rich.traceback import install as rich_traceback_install

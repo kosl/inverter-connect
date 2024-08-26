@@ -97,7 +97,7 @@ class Inverter:
         for parameter in self.parameters:
             name = parameter.name
 
-            result: ModbusReadResult = self.inv_sock.read_paremeter(parameter=parameter)
+            result: ModbusReadResult = self.inv_sock.read_parameter(parameter=parameter)
             value = InverterValue(
                 type=ValueType.READ_OUT,
                 name=name,

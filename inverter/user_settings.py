@@ -14,6 +14,7 @@ from ha_services.mqtt4homeassistant.data_classes import MqttSettings as OriginMq
 from rich import print  # noqa
 from tomlkit import TOMLDocument
 
+from inverter.constants import SETTINGS_DIR_NAME, SETTINGS_FILE_NAME
 from inverter.data_types import Config
 
 
@@ -100,8 +101,8 @@ def make_config(
 
 def get_toml_settings() -> TomlSettings:
     return TomlSettings(
-        dir_name='inverter-connect',
-        file_name='inverter-connect',
+        dir_name=SETTINGS_DIR_NAME,
+        file_name=SETTINGS_FILE_NAME,
         settings_dataclass=UserSettings(),
     )
 

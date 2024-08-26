@@ -8,9 +8,8 @@ from rich import print  # noqa
 
 import inverter
 from inverter.cli_app import cli, option_kwargs_ip, option_kwargs_port, option_kwargs_inverter_name
-from inverter.constants import SETTINGS_DIR_NAME, SETTINGS_FILE_NAME
 from inverter.mqtt_handler import InverterMqttHandler
-from inverter.user_settings import UserSettings, get_user_settings
+from inverter.user_settings import UserSettings, get_user_settings, get_toml_settings
 from ha_services.mqtt4homeassistant.mqtt import get_connected_client
 import logging
 
@@ -56,13 +55,7 @@ def publish_loop(ip, port, inverter, verbosity: int):
     user_settings: UserSettings = get_user_settings(verbosity=verbosity)
 
 
-    toml_settings = TomlSettings(
-        dir_name=SETTINGS_DIR_NAME,
-        file_name=SETTINGS_FILE_NAME,
-        settings_dataclass=UserSettings(),
-        not_exist_exit_code=None,  # Don't sys.exit() if settings file not present, yet.
-    )
-
+    toml_settings = get_toml_settings()
 
     config = make_config(
         user_settings=user_settings,
