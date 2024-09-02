@@ -25,6 +25,7 @@ class MqttSettings(OriginMqttSettings):
     """
 
     host: str = 'mqtt.your-server.tld'
+    main_uid: str = 'deye'
 
 
 @dataclasses.dataclass

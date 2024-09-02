@@ -9,16 +9,14 @@ from rich import print  # noqa
 import inverter
 from inverter.cli_app import cli, option_kwargs_ip, option_kwargs_port, option_kwargs_inverter_name
 from inverter.mqtt_handler import InverterMqttHandler
-from inverter.user_settings import UserSettings, get_user_settings, get_toml_settings
+from inverter.user_settings import UserSettings, get_user_settings, get_toml_settings, make_config
 from ha_services.mqtt4homeassistant.mqtt import get_connected_client
 import logging
 
 from ha_services.mqtt4homeassistant.components.sensor import Sensor
-from ha_services.mqtt4homeassistant.device import MainMqttDevice, MqttDevice
+from ha_services.mqtt4homeassistant.device import MqttDevice
 from ha_services.mqtt4homeassistant.mqtt import get_connected_client
 
-import inverter
-from inverter.user_settings import UserSettings, make_config
 
 
 logger = logging.getLogger(__name__)
@@ -66,15 +64,14 @@ def publish_loop(ip, port, inverter, verbosity: int):
         inverter=inverter,
     )
         
-    inverter_mqtt_handler = InverterMqttHandler(config=config, user_settings=user_settings, verbosity=verbosity)
-    
+    inverter_mqtt_handler = InverterMqttHandler(config=config, verbosity=verbosity)
+
     while True:
         try:
             inverter_mqtt_handler.publish_loop(verbosity=verbosity)
         except TimeoutError:
             print('Timeout... Retrying in 1 second...')
-            time.sleep(1)
         except Exception as e:
             print(f'Error: {e}', type(e))
             print('Retrying in 1 second...')
-            time.sleep(1)
+        time.sleep(1)

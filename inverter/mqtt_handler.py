@@ -25,11 +25,10 @@ from inverter.user_settings import UserSettings
 logger = logging.getLogger(__name__)
 
 class InverterMqttHandler:
-    def __init__(self, config: Config, user_settings: UserSettings, verbosity: int):
+    def __init__(self, config: Config, verbosity: int):
         self.config = config
-        self.user_settings = user_settings
         self.verbosity = verbosity
-        self.mqtt_client = get_connected_client(settings=user_settings.mqtt, verbosity=verbosity)
+        self.mqtt_client = get_connected_client(settings=config.mqtt_settings, verbosity=verbosity)
         self.mqtt_client.loop_start()
         self.main_device: MqttDevice|None = None
         self.parameters = get_parameter(config=config)
@@ -47,7 +46,7 @@ class InverterMqttHandler:
             manufacturer=DEFAULT_DEVICE_MANUFACTURER,
             model=self.config.inverter_name.upper(),
             sw_version=__version__,
-            config_throttle_sec=self.user_settings.mqtt.publish_config_throttle_seconds,
+            config_throttle_sec=self.config.mqtt_settings.publish_config_throttle_seconds,
         )
         self.sensor_loop_running_time = Sensor(
             device=self.main_device,
