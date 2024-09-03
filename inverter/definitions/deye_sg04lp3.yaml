@@ -130,7 +130,7 @@ parameters:
         registers: [0x0065]
 
       - name: "Battery Capacity"
-        device_class: "battery"
+        device_class: "energy"
         state_class: "measurement"
         uom: "Ah"
         scale: 1
