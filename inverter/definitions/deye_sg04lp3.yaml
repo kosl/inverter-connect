@@ -39,7 +39,7 @@ parameters:
       - name: "PV1 Power"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 1
         registers: [0x02A0]
@@ -47,7 +47,7 @@ parameters:
       - name: "PV2 Power"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 1
         registers: [0x02A1]
@@ -55,7 +55,7 @@ parameters:
       - name: "PV1 Voltage"
         device_class: "voltage"
         state_class: "measurement"
-        uom: "V"
+        unit_of_measurement: "V"
         scale: 0.1
         rule: 1
         registers: [0x02A4]
@@ -63,7 +63,7 @@ parameters:
       - name: "PV2 Voltage"
         device_class: "voltage"
         state_class: "measurement"
-        uom: "V"
+        unit_of_measurement: "V"
         scale: 0.1
         rule: 1
         registers: [0x02A6]
@@ -71,7 +71,7 @@ parameters:
       - name: "PV1 Current"
         device_class: "current"
         state_class: "measurement"
-        uom: "A"
+        unit_of_measurement: "A"
         scale: 0.1
         rule: 1
         registers: [0x02A5]
@@ -79,7 +79,7 @@ parameters:
       - name: "PV2 Current"
         device_class: "current"
         state_class: "measurement"
-        uom: "A"
+        unit_of_measurement: "A"
         scale: 0.1
         rule: 1
         registers: [0x02A7]
@@ -87,7 +87,7 @@ parameters:
       - name: "Daily Production"
         device_class: "energy"
         state_class: "total_increasing"
-        uom: "kWh"
+        unit_of_measurement: "kWh"
         scale: 0.1
         rule: 1
         registers: [0x0211]
@@ -98,7 +98,7 @@ parameters:
       - name: "Total Production"
         device_class: "energy"
         state_class: "total_increasing"
-        uom: "kWh"
+        unit_of_measurement: "kWh"
         scale: 0.1
         rule: 3
         registers: [0x0216, 0x0217]
@@ -108,7 +108,7 @@ parameters:
       - name: "Battery Equalization V"
         device_class: "voltage"
         state_class: "measurement"
-        uom: "V"
+        unit_of_measurement: "V"
         scale: 0.01
         rule: 1
         registers: [0x0063]
@@ -116,7 +116,7 @@ parameters:
       - name: "Battery Absorption V"
         device_class: "voltage"
         state_class: "measurement"
-        uom: "V"
+        unit_of_measurement: "V"
         scale: 0.01
         rule: 1
         registers: [0x0064]
@@ -124,15 +124,14 @@ parameters:
       - name: "Battery Float V"
         device_class: "voltage"
         state_class: "measurement"
-        uom: "V"
+        unit_of_measurement: "V"
         scale: 0.01
         rule: 1
         registers: [0x0065]
 
       - name: "Battery Capacity"
-        device_class: "energy"
         state_class: "measurement"
-        uom: "Ah"
+        unit_of_measurement: "Ah"
         scale: 1
         rule: 1
         registers: [0x0066]
@@ -140,7 +139,7 @@ parameters:
       - name: "Battery Empty V"
         device_class: "voltage"
         state_class: "measurement"
-        uom: "V"
+        unit_of_measurement: "V"
         scale: 0.01
         rule: 1
         registers: [0x0066]
@@ -148,7 +147,7 @@ parameters:
       - name: "Battery Max A Charge"
         device_class: "current"
         state_class: "measurement"
-        uom: "A"
+        unit_of_measurement: "A"
         scale: 1
         rule: 1
         registers: [0x006C]
@@ -156,7 +155,7 @@ parameters:
       - name: "Battery Max A Discharge"
         device_class: "current"
         state_class: "measurement"
-        uom: "A"
+        unit_of_measurement: "A"
         scale: 1
         rule: 1
         registers: [0x006D]
@@ -164,7 +163,7 @@ parameters:
       - name: "Daily Battery Charge"
         device_class: "energy"
         state_class: "total_increasing"
-        uom: "kWh"
+        unit_of_measurement: "kWh"
         scale: 0.1
         rule: 1
         registers: [0x0202]
@@ -172,7 +171,7 @@ parameters:
       - name: "Daily Battery Discharge"
         device_class: "energy"
         state_class: "total_increasing"
-        uom: "kWh"
+        unit_of_measurement: "kWh"
         scale: 0.1
         rule: 1
         registers: [0x0203]
@@ -180,7 +179,7 @@ parameters:
       - name: "Total Battery Charge"
         device_class: "energy"
         state_class: "total_increasing"
-        uom: "kWh"
+        unit_of_measurement: "kWh"
         scale: 0.1
         rule: 3
         registers: [0x0204, 0x0205]
@@ -188,7 +187,7 @@ parameters:
       - name: "Total Battery Discharge"
         device_class: "energy"
         state_class: "total_increasing"
-        uom: "kWh"
+        unit_of_measurement: "kWh"
         scale: 0.1
         rule: 3
         registers: [0x0206, 0x0207]
@@ -196,7 +195,7 @@ parameters:
       - name: "Battery Power"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 2
         registers: [0x024E]
@@ -204,7 +203,7 @@ parameters:
       - name: "Battery Voltage"
         device_class: "voltage"
         state_class: "measurement"
-        uom: "V"
+        unit_of_measurement: "V"
         scale: 0.01
         rule: 1
         registers: [0x024B]
@@ -212,7 +211,7 @@ parameters:
       - name: "Battery SOC"
         device_class: "battery"
         state_class: "measurement"
-        uom: "%"
+        unit_of_measurement: "%"
         scale: 1
         rule: 1
         registers: [0x024C]
@@ -223,7 +222,7 @@ parameters:
       - name: "Battery Current"
         device_class: "current"
         state_class: "measurement"
-        uom: "A"
+        unit_of_measurement: "A"
         scale: 0.01
         rule: 2
         registers: [0x024F]
@@ -231,7 +230,7 @@ parameters:
       - name: "Battery Temperature"
         device_class: "temperature"
         state_class: "measurement"
-        uom: "°C"
+        unit_of_measurement: "°C"
         scale: 0.1
         rule: 1
         offset: 1000
@@ -245,7 +244,7 @@ parameters:
       - name: "Grid Frequency"
         device_class: "frequency"
         state_class: "measurement"
-        uom: "Hz"
+        unit_of_measurement: "Hz"
         scale: 0.01
         rule: 1
         registers: [0x0261]
@@ -253,7 +252,7 @@ parameters:
       - name: "Total Grid Power"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 2
         registers: [0x0271]
@@ -261,7 +260,7 @@ parameters:
       - name: "Grid Voltage L1"
         device_class: "voltage"
         state_class: "measurement"
-        uom: "V"
+        unit_of_measurement: "V"
         scale: 0.1
         rule: 1
         registers: [0x0256]
@@ -269,7 +268,7 @@ parameters:
       - name: "Grid Voltage L2"
         device_class: "voltage"
         state_class: "measurement"
-        uom: "V"
+        unit_of_measurement: "V"
         scale: 0.1
         rule: 1
         registers: [0x0257]
@@ -277,7 +276,7 @@ parameters:
       - name: "Grid Voltage L3"
         device_class: "voltage"
         state_class: "measurement"
-        uom: "V"
+        unit_of_measurement: "V"
         scale: 0.1
         rule: 1
         registers: [0x0258]
@@ -285,7 +284,7 @@ parameters:
       - name: "Internal CT L1 Power"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 2
         registers: [0x025C]
@@ -293,7 +292,7 @@ parameters:
       - name: "Internal CT L2 Power"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 2
         registers: [0x025D]
@@ -301,7 +300,7 @@ parameters:
       - name: "Internal CT L3 Power"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 2
         registers: [0x025E]
@@ -309,7 +308,7 @@ parameters:
       - name: "External CT L1 Power"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 2
         registers: [0x0268]
@@ -317,7 +316,7 @@ parameters:
       - name: "External CT L2 Power"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 2
         registers: [0x0269]
@@ -325,7 +324,7 @@ parameters:
       - name: "External CT L3 Power"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 2
         registers: [0x026A]
@@ -333,7 +332,7 @@ parameters:
       - name: "Daily Energy Bought"
         device_class: "energy"
         state_class: "total_increasing"
-        uom: "kWh"
+        unit_of_measurement: "kWh"
         scale: 0.1
         rule: 1
         registers: [0x0208]
@@ -341,7 +340,7 @@ parameters:
       - name: "Total Energy Bought"
         device_class: "energy"
         state_class: "total_increasing"
-        uom: "kWh"
+        unit_of_measurement: "kWh"
         scale: 0.1
         rule: 3
         registers: [0x020A, 0x020B]
@@ -349,7 +348,7 @@ parameters:
       - name: "Daily Energy Sold"
         device_class: "energy"
         state_class: "total_increasing"
-        uom: "kWh"
+        unit_of_measurement: "kWh"
         scale: 0.1
         rule: 1
         registers: [0x0209]
@@ -357,7 +356,7 @@ parameters:
       - name: "Total Energy Sold"
         device_class: "energy"
         state_class: "total_increasing"
-        uom: "kWh"
+        unit_of_measurement: "kWh"
         scale: 0.1
         rule: 3
         registers: [0x020C,0x020D]
@@ -367,7 +366,7 @@ parameters:
       - name: "Total Load Power"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 1
         registers: [0x028D]
@@ -375,7 +374,7 @@ parameters:
       - name: "Load L1 Power"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 1
         registers: [0x028A]
@@ -383,7 +382,7 @@ parameters:
       - name: "Load L2 Power"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 1
         registers: [0x028B]
@@ -391,7 +390,7 @@ parameters:
       - name: "Load L3 Power"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 1
         registers: [0x028C]
@@ -399,7 +398,7 @@ parameters:
       - name: "Load Voltage L1"
         device_class: "voltage"
         state_class: "measurement"
-        uom: "V"
+        unit_of_measurement: "V"
         scale: 0.1
         rule: 1
         registers: [0x0284]
@@ -407,7 +406,7 @@ parameters:
       - name: "Load Voltage L2"
         device_class: "voltage"
         state_class: "measurement"
-        uom: "V"
+        unit_of_measurement: "V"
         scale: 0.1
         rule: 1
         registers: [0x0285]
@@ -415,7 +414,7 @@ parameters:
       - name: "Load Voltage L3"
         device_class: "voltage"
         state_class: "measurement"
-        uom: "V"
+        unit_of_measurement: "V"
         scale: 0.1
         rule: 1
         registers: [0x0286]
@@ -423,7 +422,7 @@ parameters:
       - name: "Daily Load Consumption"
         device_class: "energy"
         state_class: "total_increasing"
-        uom: "kWh"
+        unit_of_measurement: "kWh"
         scale: 0.1
         rule: 1
         registers: [0x020E]
@@ -431,7 +430,7 @@ parameters:
       - name: "Total Load Consumption"
         device_class: "energy"
         state_class: "total_increasing"
-        uom: "kWh"
+        unit_of_measurement: "kWh"
         scale: 0.1
         rule: 3
         registers: [0x020F, 0x0210]
@@ -440,7 +439,7 @@ parameters:
     items:
       - name: "Running Status"
         device_class: "enum"
-        uom: ""
+        unit_of_measurement: ""
         scale: 1
         rule: 1
         registers: [0x01F4]
@@ -458,7 +457,7 @@ parameters:
       - name: "Total Power"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 2
         registers: [0x00AF]
@@ -466,7 +465,7 @@ parameters:
       - name: "Current L1"
         device_class: "current"
         state_class: "measurement"
-        uom: "A"
+        unit_of_measurement: "A"
         scale: 0.01
         rule: 2
         registers: [0x0276]
@@ -474,7 +473,7 @@ parameters:
       - name: "Current L2"
         device_class: "current"
         state_class: "measurement"
-        uom: "A"
+        unit_of_measurement: "A"
         scale: 0.01
         rule: 2
         registers: [0x0277]
@@ -482,7 +481,7 @@ parameters:
       - name: "Current L3"
         device_class: "current"
         state_class: "measurement"
-        uom: "A"
+        unit_of_measurement: "A"
         scale: 0.01
         rule: 2
         registers: [0x0278]
@@ -490,7 +489,7 @@ parameters:
       - name: "Inverter L1 Power"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 2
         registers: [0x0279]
@@ -498,7 +497,7 @@ parameters:
       - name: "Inverter L2 Power"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 2
         registers: [0x027A]
@@ -506,7 +505,7 @@ parameters:
       - name: "Inverter L3 Power"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 2
         registers: [0x027B]
@@ -514,7 +513,7 @@ parameters:
       - name: "DC Temperature"
         device_class: "temperature"
         state_class: "measurement"
-        uom: "°C"
+        unit_of_measurement: "°C"
         scale: 0.1
         rule: 2
         offset: 1000
@@ -523,7 +522,7 @@ parameters:
       - name: "AC Temperature"
         device_class: "temperature"
         state_class: "measurement"
-        uom: "°C"
+        unit_of_measurement: "°C"
         scale: 0.1
         rule: 2
         offset: 1000
@@ -532,27 +531,24 @@ parameters:
       - name: "Rated Power"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 0.1
         rule: 3
         registers: [0x0014,0x0015]
 
       - name: "Inverter ID"
-        uom: ""
         scale: 1
         rule: 5
         registers: [0x0003, 0x0004, 0x0005, 0x0006, 0x0007]
         isstr: true
 
       - name: "Communication Board Version No."
-        uom: ""
         scale: 1
         rule: 1
         registers: [0x0011]
         isstr: true
 
       - name: "Control Board Version No."
-        uom: ""
         scale: 1
         rule: 1
         registers: [0x000D]
@@ -562,8 +558,7 @@ parameters:
     items:
       - name: "SmartLoad Enable Status"
         device_class: "enum"
-        state_class: "measurement"
-        uom: ""
+        unit_of_measurement: ""
         scale: 1
         rule: 1
         registers: [0x0085]
@@ -579,7 +574,7 @@ parameters:
       - name: "Phase voltage of Gen port A"
         device_class: "voltage"
         state_class: "measurement"
-        uom: "V"
+        unit_of_measurement: "V"
         scale: 0.1
         rule: 1
         registers: [0x0295]
@@ -587,7 +582,7 @@ parameters:
       - name: "Phase voltage of Gen port B"
         device_class: "voltage"
         state_class: "measurement"
-        uom: "V"
+        unit_of_measurement: "V"
         scale: 0.1
         rule: 1
         registers: [0x0296]
@@ -595,7 +590,7 @@ parameters:
       - name: "Phase voltage of Gen port C"
         device_class: "voltage"
         state_class: "measurement"
-        uom: "V"
+        unit_of_measurement: "V"
         scale: 0.1
         rule: 1
         registers: [0x0297]
@@ -603,7 +598,7 @@ parameters:
       - name: "Phase power of Gen port A"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 1
         registers: [0x0298]
@@ -614,7 +609,7 @@ parameters:
       - name: "Phase power of Gen port B"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 1
         registers: [0x0299]
@@ -625,7 +620,7 @@ parameters:
       - name: "Phase power of Gen port C"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 1
         registers: [0x029A]
@@ -636,7 +631,7 @@ parameters:
       - name: "Total Power of Gen port"
         device_class: "power"
         state_class: "measurement"
-        uom: "W"
+        unit_of_measurement: "W"
         scale: 1
         rule: 1
         registers: [0x029B]
@@ -647,7 +642,7 @@ parameters:
       - name: "Generator daily power generation"
         device_class: "energy"
         state_class: "total_increasing"
-        uom: "kWh"
+        unit_of_measurement: "kWh"
         scale: 0.1
         rule: 1
         registers: [0x0218]
@@ -655,7 +650,7 @@ parameters:
       - name: "Generator total power generation"
         device_class: "energy"
         state_class: "total_increasing"
-        uom: "kWh"
+        unit_of_measurement: "kWh"
         scale: 0.1
         rule: 3
         registers: [0x0219, 0x021A]
@@ -665,7 +660,7 @@ parameters:
   - group: Alert
     items:
       - name: "Alert"
-        uom: ""
+        unit_of_measurement: ""
         scale: 1
         rule: 5
         registers: [0x0229, 0x022A, 0x22B, 0x022C, 0x022D, 0x022E]

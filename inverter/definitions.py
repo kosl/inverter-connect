@@ -70,7 +70,7 @@ def get_parameter(*, config: Config) -> Iterable[Parameter]:
             #     'name': 'PV1 Voltage',
             #     'class': 'voltage',
             #     'state_class': 'measurement',
-            #     'uom': 'V',
+            #     'unit_of_measurement': 'V',
             #     'scale': 0.1,
             #     'rule': 1,
             #     'registers': [109],
@@ -79,7 +79,7 @@ def get_parameter(*, config: Config) -> Iterable[Parameter]:
             rule = item['rule']
             registers = item['registers']
 
-            parameter_kwargs = pluck(item, keys=['name', 'device_class', 'state_class', 'scale', 'offset'])
+            parameter_kwargs = pluck(item, keys=['name', 'device_class', 'state_class', 'scale', 'offset', 'unit_of_measurement'])
             if lookup := item.get('lookup'):
                 lookup = convert_lookup(lookup)
 
@@ -94,7 +94,6 @@ def get_parameter(*, config: Config) -> Iterable[Parameter]:
                 length=len(registers),
                 group=group_name,
                 lookup=lookup,
-                unit=item['uom'],
                 parser=converter_func,
                 **parameter_kwargs,
             )

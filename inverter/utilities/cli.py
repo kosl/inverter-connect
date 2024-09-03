@@ -115,7 +115,7 @@ def print_inverter_values(values: list[InverterValue], title='Inverter Values'):
             value_str = f'v{value.value}'
             value_str = f'[green]{value_str:>12}'
         else:
-            value_str = f'[green]{value.value:>12} [blue]{value.unit}'
+            value_str = f'[green]{value.value:>12} [blue]{value.unit_of_measurement}'
 
         if value.type == ValueType.READ_OUT:
             parameter: Parameter = value.result.parameter

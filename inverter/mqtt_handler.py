@@ -65,7 +65,7 @@ class InverterMqttHandler:
                 uid=slugify(parameter.name),
                 device_class=parameter.device_class,
                 state_class=parameter.state_class,
-                unit_of_measurement=parameter.unit,
+                unit_of_measurement=parameter.unit_of_measurement,
                 suggested_display_precision=len(str(parameter.scale)[str(parameter.scale).rfind('.')+1:]) if parameter.scale < 1 else 0
             ), parameter))
         
@@ -144,7 +144,7 @@ def old_publish_forever(*, config: Config, verbosity): #
                                     value=ha_value,
                                     device_class=value.device_class,
                                     state_class=value.state_class,
-                                    unit=value.unit,
+                                    unit_of_measurement=value.unit,
                                 )
                             )
                     except ValidationError as err:
@@ -158,7 +158,7 @@ def old_publish_forever(*, config: Config, verbosity): #
                                 value=int(time.monotonic() - start_time),
                                 device_class='',
                                 state_class='measurement',
-                                unit='sec.',
+                                unit_of_measurement='sec.',
                             )
                         )
 

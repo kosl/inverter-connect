@@ -29,7 +29,7 @@ class InverterValue:
     value: float | str
     device_class: str  # e.g.: "voltage" / "current" / "energy" etc.
     state_class: str | None  # e.g.: "measurement" / "total" / "total_increasing" etc.
-    unit: str  # e.g.: "V" / "A" / "kWh" etc.
+    unit_of_measurement: str | None # e.g.: "V" / "A" / "kWh" etc.
     result: ModbusReadResult | None
 
 
@@ -105,13 +105,13 @@ class Parameter:
     length: int
     group: str
     name: str  # e.g.: "PV1 Voltage" / "PV1 Current" / "Daily Production" etc.
-    unit: str  # e.g.: "V" / "A" / "kWh" etc.
     scale: float  # e.g.: 1 / 0.1
     parser: Callable
     offset: int | None = None
     lookup: dict | None = None
     device_class: str | None = None  # e.g.: "voltage" / "current" / "energy" etc.
     state_class: str | None = None # e.g.: "measurement" / "total" / "total_increasing" etc.
+    unit_of_measurement: str | None = None # e.g.: "V" / "A" / "kWh" etc.
 
 
 @dataclasses.dataclass

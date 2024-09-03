@@ -62,7 +62,7 @@ def compute_values(values: dict) -> Iterable[InverterValue]:
                     value=power,
                     device_class='power',
                     state_class='measurement',
-                    unit='W',
+                    unit_of_measurement='W',
                     result=None,
                 )
 
@@ -73,7 +73,7 @@ def compute_values(values: dict) -> Iterable[InverterValue]:
             value=round(total_power, 2),
             device_class='power',
             state_class='measurement',
-            unit='W',
+            unit_of_measurement='W',
             result=None,
         )
 
@@ -104,7 +104,7 @@ class Inverter:
                 value=result.parsed_value,
                 device_class=parameter.device_class,
                 state_class=parameter.state_class,
-                unit=parameter.unit,
+                unit_of_measurement=parameter.unit_of_measurement,
                 result=result,
             )
             if self.config.verbosity > 1:
