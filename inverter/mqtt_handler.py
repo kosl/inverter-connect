@@ -58,16 +58,16 @@ class InverterMqttHandler:
             suggested_display_precision=0,
         )
 
-        #for parameter in self.parameters:
-        #    self.sensors.append((Sensor(
-        #        device=self.main_device,
-        #        name=parameter.name,
-        #        uid=slugify(parameter.name),
-        #        device_class=parameter.device_class,
-        #        state_class=parameter.state_class,
-        #        unit_of_measurement=parameter.unit,
-        #        suggested_display_precision=len(str(parameter.scale)[str(parameter.scale).rfind('.')+1:]) if parameter.scale < 1 else 0
-        #    ), parameter))
+        for parameter in self.parameters:
+            self.sensors.append((Sensor(
+                device=self.main_device,
+                name=parameter.name,
+                uid=slugify(parameter.name),
+                device_class=parameter.device_class,
+                state_class=parameter.state_class,
+                unit_of_measurement=parameter.unit,
+                suggested_display_precision=len(str(parameter.scale)[str(parameter.scale).rfind('.')+1:]) if parameter.scale < 1 else 0
+            ), parameter))
         
         
     def publish_loop(self, verbosity):
@@ -86,10 +86,10 @@ class InverterMqttHandler:
                         inverter_socket.connect()
                         self.sensor_loop_running_time.set_state(int(time.monotonic() - start_time))
                         self.sensor_loop_running_time.publish(self.mqtt_client)
-                        #for sensor, parameter in self.sensors:
-                        #    result: ModbusReadResult = inverter_socket.read_parameter(parameter=parameter)
-                        #    sensor.set_state(result.parsed_value)
-                        #    sensor.publish(self.mqtt_client)
+                        for sensor, parameter in self.sensors:
+                            result: ModbusReadResult = inverter_socket.read_parameter(parameter=parameter)
+                            sensor.set_state(result.parsed_value)
+                            sensor.publish(self.mqtt_client)
                 time.sleep(10)
                         
         except ReadTimeout as err:

@@ -79,7 +79,7 @@ def get_parameter(*, config: Config) -> Iterable[Parameter]:
             rule = item['rule']
             registers = item['registers']
 
-            parameter_kwargs = pluck(item, keys=['name', 'state_class', 'scale', 'offset'])
+            parameter_kwargs = pluck(item, keys=['name', 'device_class', 'state_class', 'scale', 'offset'])
             if lookup := item.get('lookup'):
                 lookup = convert_lookup(lookup)
 
@@ -96,7 +96,6 @@ def get_parameter(*, config: Config) -> Iterable[Parameter]:
                 lookup=lookup,
                 unit=item['uom'],
                 parser=converter_func,
-                device_class=item['class'],
                 **parameter_kwargs,
             )
             parameters.append(parameter)
