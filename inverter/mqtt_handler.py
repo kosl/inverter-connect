@@ -19,7 +19,7 @@ from inverter.constants import ERROR_STR_NO_DATA, DEFAULT_DEVICE_MANUFACTURER
 from inverter.definitions import get_parameter
 from inverter.daily_reset import DailyProductionReset, DailyProductionResetState
 from inverter.data_types import Config, InverterInfo, ModbusReadResult
-from inverter.exceptions import ReadInverterError, ReadTimeout, ValidationError
+from inverter.exceptions import ReadInverterError, ReadTimeout, ValidationError, ParseModbusValueError
 from inverter.user_settings import UserSettings
 
 logger = logging.getLogger(__name__)
@@ -87,9 +87,13 @@ class InverterMqttHandler:
                         self.sensor_loop_running_time.set_state(int(time.monotonic() - start_time))
                         self.sensor_loop_running_time.publish(self.mqtt_client)
                         for sensor, parameter in self.sensors:
-                            result: ModbusReadResult = inverter_socket.read_parameter(parameter=parameter)
-                            sensor.set_state(result.parsed_value)
-                            sensor.publish(self.mqtt_client)
+                            try:
+                                result: ModbusReadResult = inverter_socket.read_parameter(parameter=parameter)
+                            except ParseModbusValueError as err:
+                                print(f'[red]Skipping {parameter.name} update due to {err}')
+                            else:
+                                sensor.set_state(result.parsed_value)
+                                sensor.publish(self.mqtt_client)
                 time.sleep(10)
                         
         except ReadTimeout as err:

@@ -537,6 +537,7 @@ parameters:
         registers: [0x0014,0x0015]
 
       - name: "Inverter ID"
+        device_class: "enum"
         scale: 1
         rule: 5
         registers: [0x0003, 0x0004, 0x0005, 0x0006, 0x0007]
