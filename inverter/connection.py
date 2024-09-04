@@ -129,7 +129,7 @@ def parse_response(data: bytes) -> RawModBusResponse:
     try:
         data = data.replace(b"\x10", b"").decode('ASCII')
     except UnicodeDecodeError as err:
-        logger.warning(f'Non ASCII: {data=} ({err})')
+        logger.warning(f'Non ASCII response: {data=} ({err})')
         result = RawModBusResponse(prefix='', data=data)
     else:
         data = data.replace('\r\n', '\n')
@@ -144,7 +144,7 @@ def parse_response(data: bytes) -> RawModBusResponse:
             data = data.removesuffix('\n+ok')
             data = data.strip()
             result = RawModBusResponse(prefix=prefix + separator, data=data)
-        else:
+        else: # TODO 'no data' is never returned!
             logger.warning(f'Unexpected data: {data=}')
             result = RawModBusResponse(prefix='', data=data)
     logger.debug('%s', result)
@@ -265,7 +265,7 @@ class InverterSock:
 
         raw_modbus_response: RawModBusResponse = parse_response(data=data)
         logger.debug(f'{raw_modbus_response=}')
-        if data == 'no data':
+        if data == 'no data' or not '+ok=' in raw_modbus_response.prefix:
             raise ModbusNoData
 
         return raw_modbus_response.data

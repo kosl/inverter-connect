@@ -19,7 +19,7 @@ from inverter.constants import ERROR_STR_NO_DATA, DEFAULT_DEVICE_MANUFACTURER
 from inverter.definitions import get_parameter
 from inverter.daily_reset import DailyProductionReset, DailyProductionResetState
 from inverter.data_types import Config, InverterInfo, ModbusReadResult
-from inverter.exceptions import ReadInverterError, ReadTimeout, ValidationError, ParseModbusValueError
+from inverter.exceptions import ReadInverterError, ReadTimeout, ValidationError, ParseModbusValueError, CrcError, ModbusNoData
 from inverter.user_settings import UserSettings
 
 logger = logging.getLogger(__name__)
@@ -89,8 +89,8 @@ class InverterMqttHandler:
                         for sensor, parameter in self.sensors:
                             try:
                                 result: ModbusReadResult = inverter_socket.read_parameter(parameter=parameter)
-                            except ParseModbusValueError as err:
-                                print(f'[red]Skipping {parameter.name} update due to {err}')
+                            except (ParseModbusValueError, CrcError, ModbusNoData) as err:
+                                print(f'[red]Skipping "{parameter.name}" update due to {err}')
                             else:
                                 sensor.set_state(result.parsed_value)
                                 sensor.publish(self.mqtt_client)
