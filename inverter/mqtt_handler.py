@@ -90,7 +90,7 @@ class InverterMqttHandler:
                             try:
                                 result: ModbusReadResult = inverter_socket.read_parameter(parameter=parameter)
                             except (ParseModbusValueError, CrcError, ModbusNoData) as err:
-                                print(f'[red]Skipping "{parameter.name}" update due to {err}')
+                                print(f'[blue]Skipping "{parameter.name}" update due to {err}')
                             else:
                                 sensor.set_state(result.parsed_value)
                                 sensor.publish(self.mqtt_client)

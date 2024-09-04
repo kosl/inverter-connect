@@ -439,7 +439,6 @@ parameters:
     items:
       - name: "Running Status"
         device_class: "enum"
-        unit_of_measurement: ""
         scale: 1
         rule: 1
         registers: [0x01F4]
@@ -559,7 +558,6 @@ parameters:
     items:
       - name: "SmartLoad Enable Status"
         device_class: "enum"
-        unit_of_measurement: ""
         scale: 1
         rule: 1
         registers: [0x0085]
@@ -661,7 +659,6 @@ parameters:
   - group: Alert
     items:
       - name: "Alert"
-        unit_of_measurement: ""
         scale: 1
         rule: 5
         registers: [0x0229, 0x022A, 0x22B, 0x022C, 0x022D, 0x022E]
