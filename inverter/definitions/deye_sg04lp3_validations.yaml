@@ -4,5 +4,194 @@ validators:
       min_value: -10
       max_value: 60
 
+    - name: "Battery Equalization V"
+      type: "int"
+      min_value: 40
+      max_value: 60      
+    - name: "Battery Capacity"
+      type: "int"
+      min_value: 100
+      max_value: 500
+    - name: "Battery Current"
+      type: "float"
+      min_value: -100
+      max_value: 240
+    - name: "Battery Empty V"
+      type: "int"
+      min_value: 3
+      max_value: 50
+    - name: "Battery Equalization V"
+      type: "int"
+      min_value: 40
+      max_value: 60
+    - name: "Battery Float V"
+      type: "int"
+      min_value: 40
+      max_value: 60
+    - name: "Battery Max A Charge"
+      type: "int"
+      min_value: 40
+      max_value: 100
+    - name: "Battery Max A Disharge"
+      type: "int"
+      min_value: 50
+      max_value: 240
+    - name: "Battery Power"
+      type: "float"
+      min_value: -12000
+      max_value: 12000
+    - name: "Battery SOC"
+      type: "int"
+      min_value: 3
+      max_value: 100
+    - name: "Battery Temperature"
+      type: "float"
+      min_value: -10
+      max_value: 50
+    - name: "Battery Voltage"
+      type: "int"
+      min_value: 40
+      max_value: 60
+
+    - name: "Current L1"
+      type: "int"
+      min_value: -25
+      max_value: 25
+    - name: "Current L2"
+      type: "int"
+      min_value: -25
+      max_value: 25
+    - name: "Current L3"
+      type: "int"
+      min_value: -25
+      max_value: 25
+
+    - name: "DC Temperature"
+      type: "float"
+      min_value: -10
+      max_value: 60
+
+    - name: "External CT L1 Power"
+      type: "float"
+      min_value: -8000
+      max_value: 8000
+    - name: "External CT L2 Power"
+      type: "float"
+      min_value: -8000
+      max_value: 8000
+    - name: "External CT L3 Power"
+      type: "float"
+      min_value: -8000
+      max_value: 8000
+    - name: "Internal CT L1 Power"
+      type: "float"
+      min_value: -8000
+      max_value: 8000
+    - name: "Internal CT L2 Power"
+      type: "float"
+      min_value: -8000
+      max_value: 8000
+    - name: "Internal CT L3 Power"
+      type: "float"
+      min_value: -8000
+      max_value: 8000
+    - name: "Inverter L1 Power"
+      type: "float"
+      min_value: -2000
+      max_value: 7000
+    - name: "Inverter L2 Power"
+      type: "float"
+      min_value: -2000
+      max_value: 7000
+    - name: "Inverter L3 Power"
+      type: "float"
+      min_value: -2000
+      max_value: 7000
+    - name: "Load L1 Power"
+      type: "float"
+      min_value: 0
+      max_value: 7000
+    - name: "Load L2 Power"
+      type: "float"
+      min_value: 0
+      max_value: 7000
+    - name: "Load L2 Power"
+      type: "float"
+      min_value: 0
+      max_value: 7000
+      
+    - name: "Grid Frequency"
+      type: "int"
+      min_value: 40
+      max_value: 61
+    - name: "Grid Voltage L1"
+      type: "int"
+      min_value: 201
+      max_value: 245
+    - name: "Grid Voltage L2"
+      type: "int"
+      min_value: 201
+      max_value: 245
+    - name: "Grid Voltage L3"
+      type: "int"
+      min_value: 201
+      max_value: 245
+    - name: "Load Voltage L1"
+      type: "int"
+      min_value: 201
+      max_value: 245
+    - name: "Load Voltage L2"
+      type: "int"
+      min_value: 201
+      max_value: 245
+    - name: "Load Voltage L3"
+      type: "int"
+      min_value: 201
+      max_value: 245
+    - name: "Phase voltage of Gen port A"
+      type: "int"
+      min_value: 201
+      max_value: 245
+    - name: "Phase voltage of Gen port B"
+      type: "int"
+      min_value: 201
+      max_value: 245
+    - name: "Phase voltage of Gen port C"
+      type: "int"
+      min_value: 201
+      max_value: 245
+
+
+    - name: "PV1 Current"
+      type: "int"
+      min_value: 0
+      max_value: 15
+    - name: "PV1 Power"
+      type: "int"
+      min_value: 0
+      max_value: 5000
+    - name: "PV1 Voltage"
+      type: "int"
+      min_value: 0
+      max_value: 800
+      
+    - name: "Rated Power"
+      type: "int"
+      min_value: 11999
+      max_value: 12000
+
+    - name: "Total Grid Power"
+      type: "float"
+      min_value: -15000
+      max_value: 25000
+    - name: "Total Load Power"
+      type: "float"
+      min_value: 0
+      max_value: 25000
+    - name: "Total Power"
+      type: "float"
+      min_value: 0
+      max_value: 25000
+      
 
 

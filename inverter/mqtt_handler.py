@@ -18,9 +18,12 @@ from inverter.connection import InverterSock
 from inverter.constants import ERROR_STR_NO_DATA, DEFAULT_DEVICE_MANUFACTURER
 from inverter.definitions import get_parameter
 from inverter.daily_reset import DailyProductionReset, DailyProductionResetState
-from inverter.data_types import Config, InverterInfo, ModbusReadResult
+from inverter.data_types import Config, InverterInfo, ModbusReadResult, InverterValue, ValueType
+
 from inverter.exceptions import ReadInverterError, ReadTimeout, ValidationError, ParseModbusValueError, CrcError, ModbusNoData
 from inverter.user_settings import UserSettings
+from inverter.validators import InverterValueValidator
+
 
 logger = logging.getLogger(__name__)
 
@@ -34,7 +37,9 @@ class InverterMqttHandler:
         self.parameters = get_parameter(config=config)
         self.sensors = list()
         self.sensor_loop_running_time = None
+        self.value_validator = InverterValueValidator(config=config)
 
+        
     def init_device(self, inverter_info: InverterInfo, verbosity: int):
         """
         Create sensors from definitions/*.yaml add it to device for later
@@ -89,11 +94,24 @@ class InverterMqttHandler:
                         for sensor, parameter in self.sensors:
                             try:
                                 result: ModbusReadResult = inverter_socket.read_parameter(parameter=parameter)
-                            except (ParseModbusValueError, CrcError, ModbusNoData) as err:
+                                value = InverterValue(
+                                    type=ValueType.READ_OUT,
+                                    name=parameter.name,
+                                    value=result.parsed_value,
+                                    device_class=parameter.device_class,
+                                    state_class=parameter.state_class,
+                                    unit_of_measurement=parameter.unit_of_measurement,
+                                    result=result,
+                                )
+                                self.value_validator(inverter_value=value)
+                            except (ParseModbusValueError, CrcError, ModbusNoData, ValidationError) as err:
                                 print(f'[blue]Skipping "{parameter.name}" update due to {err}')
                             else:
-                                sensor.set_state(result.parsed_value)
-                                sensor.publish(self.mqtt_client)
+                                if result == ERROR_STR_NO_DATA:
+                                    print (f'[red] No value for {parameter.name}')
+                                else:
+                                    sensor.set_state(result.parsed_value)
+                                    sensor.publish(self.mqtt_client)
                 time.sleep(10)
                         
         except ReadTimeout as err:

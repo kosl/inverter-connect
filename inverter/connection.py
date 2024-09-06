@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 import socket
+import time
 
 import backoff
 from rich import print  # noqa
@@ -228,9 +229,10 @@ class InverterSock:
 
     def recv_command(self, *, command: bytes, buffer_size=1024, max_recv=100, recv_until=None):
         self.send(command=command)
-
+        time.sleep(0.1) # Some time is needed to get the register into logger and prevent false readings (spikes)
         if self.config.verbosity > 1:
             print('recv', end='...', flush=True)
+
 
         data = b''
         try:
@@ -265,7 +267,7 @@ class InverterSock:
 
         raw_modbus_response: RawModBusResponse = parse_response(data=data)
         logger.debug(f'{raw_modbus_response=}')
-        if data == 'no data' or not '+ok=' in raw_modbus_response.prefix:
+        if data == 'no data':
             raise ModbusNoData
 
         return raw_modbus_response.data
@@ -315,6 +317,7 @@ class InverterSock:
             result = ModbusReadResult(parameter=parameter, parsed_value='no data')
         else:
             result: ModbusReadResult = make_modbus_result(response=response, parameter=parameter)
+
         return result
 
     def write(self, *, address: int, values: list[int, ...]):
